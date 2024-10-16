@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useAuth } from "../context/AuthProvider";
 import TextInput from "../components/common/TextInput";
+import PasswordInput from "../components/common/PasswordInput";
+import Button from "../components/common/Button";
 
 const RegisterPage = () => {
   const [username, setUsername] = useState("");
@@ -31,22 +33,23 @@ const RegisterPage = () => {
         onChange={(e) => setName(e.target.value)}
         required
       />
-      <input
-        type="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        placeholder="Password"
-        required
-      />
-      <input
-        type="password"
-        value={confirmPassword}
-        onChange={(e) => setConfirmPassword(e.target.value)}
-        placeholder="Confirm Password"
-        required
-      />
+      <PasswordInput
+          id="password"
+          label="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+        />
+        <PasswordInput
+          id="confirmPassword"
+          label="confirm password"
+          value={confirmPassword}
+          onChange={(e) => setConfirmPassword(e.target.value)}
+          placeholder="confirm password"
+          required
+        />
       {error && <div className="error-message">{error}</div>}
-      <button type="submit">Register</button>
+      <Button type="submit">Register</Button>
     </form>
   );
 };

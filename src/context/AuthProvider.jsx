@@ -21,7 +21,8 @@ export const AuthProvider = ({ children }) => {
       console.log("user logged in!", loggedUser);
     } else if (
       location.pathname !== "/login" &&
-      location.pathname !== "/register"
+      location.pathname !== "/register" &&
+      location.pathname !== "/"
     ) {
       navigate("/login");
     }

@@ -3,6 +3,7 @@ import { useAuth } from "../context/AuthProvider"; // Import useAuth hook
 import { useNavigate } from "react-router-dom";
 import TextInput from "../components/common/TextInput";
 import PasswordInput from "../components/common/PasswordInput";
+import Button from "../components/common/Button";
 
 const LoginPage = () => {
   const [username, setUsername] = useState("");
@@ -30,6 +31,7 @@ const LoginPage = () => {
     navigate("/register");
   };
 
+  
   return (
     <div className="login-container">
       <h2>Login</h2>
@@ -38,20 +40,20 @@ const LoginPage = () => {
           id="username"
           label="username"
           value={username}
-          onChange={(e) => setName(e.target.value)}
+          onChange={(e) => setUsername(e.target.value)}
           required
         />
         <PasswordInput
           id="password"
           label="password"
           value={password}
-          onChange={(e) => setName(e.target.value)}
+          onChange={(e) => setPassword(e.target.value)}
           required
         />
         {error && <p className="error">{error}</p>}
-        <button type="submit">Login</button>
+        <Button type="submit" label="Login" />
       </form>
-      <button onClick={handleRegisterRedirect}>New here? Register</button>
+      <Button onClick={handleRegisterRedirect} label="New here? Register" />
     </div>
   );
 };

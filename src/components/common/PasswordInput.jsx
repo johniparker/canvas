@@ -1,12 +1,9 @@
-// components/common/NumberInput.jsx
-import React from 'react';
-
-const NumberInput = ({ id, label, value, onChange, required = false }) => {
+const PasswordInput = ({ id, label, value, onChange, required = false }) => {
   return (
     <div>
       <label htmlFor={id}>{label}:</label>
       <input
-        type="number"
+        type="password"
         id={id}
         value={value}
         onChange={onChange}
@@ -16,4 +13,4 @@ const NumberInput = ({ id, label, value, onChange, required = false }) => {
   );
 };
 
-export default NumberInput;
+export default PasswordInput;

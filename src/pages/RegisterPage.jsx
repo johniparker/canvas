@@ -1,11 +1,12 @@
 import { useState } from "react";
-import { useAuth } from "../context/AuthProvider"; 
+import { useAuth } from "../context/AuthProvider";
+import TextInput from "../components/common/TextInput";
 
 const RegisterPage = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [error, setError] = useState('');
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [error, setError] = useState("");
   const { register } = useAuth();
 
   const handleRegister = async (e) => {
@@ -16,18 +17,18 @@ const RegisterPage = () => {
         setError(result.error);
       }
     } catch (err) {
-      console.error('Error during registration:', err);
-      setError('An error occurred. Please try again.');
+      console.error("Error during registration:", err);
+      setError("An error occurred. Please try again.");
     }
   };
 
   return (
     <form onSubmit={handleRegister}>
-      <input
-        type="text"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-        placeholder="Username"
+      <TextInput
+        id="name"
+        label="Name"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
         required
       />
       <input

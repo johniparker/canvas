@@ -18,7 +18,11 @@ export const AuthProvider = ({ children }) => {
     if (loggedUser) {
       setUser(loggedUser);
       setAuthenticated(true);
-    } else if (location.pathname !== '/login' && location.pathname !== '/register') {
+      console.log("user logged in!", loggedUser);
+    } else if (
+      location.pathname !== "/login" &&
+      location.pathname !== "/register"
+    ) {
       navigate("/login");
     }
     setLoading(false);
@@ -27,7 +31,9 @@ export const AuthProvider = ({ children }) => {
   const login = async (username, password) => {
     setLoading(true);
     const user = await usersApi.getByField("username", username);
+    console.log("Fetched user:", user);
     if (user && user.password === password) {
+      console.log("Logging in user:", user);
       setUser(user);
       setAuthenticated(true);
       localStorage.setItem("loggedUser", JSON.stringify(user));
@@ -43,30 +49,30 @@ export const AuthProvider = ({ children }) => {
     setLoading(true);
 
     if (password !== confirmPassword) {
-        setLoading(false);
-        return { success: false, error: "passwords do not match"};
+      setLoading(false);
+      return { success: false, error: "passwords do not match" };
     }
 
     const existingUser = await usersApi.getByField("username", username);
     if (existingUser) {
-        setLoading(false);
-        return { success: false, error: "username already exists"};
+      setLoading(false);
+      return { success: false, error: "username already exists" };
     }
 
-    const newUser = { username, password};
+    const newUser = { username, password };
     const createdUser = await usersApi.create(newUser);
 
     if (createdUser) {
-        setUser(createdUser);
-        setAuthenticated(true);
-        localStorage.setItem("loggedUser", JSON.stringify(createdUser));
-        navigate("/");
-        setLoading(false);
-        return { success: true};
+      setUser(createdUser);
+      setAuthenticated(true);
+      localStorage.setItem("loggedUser", JSON.stringify(createdUser));
+      navigate("/");
+      setLoading(false);
+      return { success: true };
     }
 
     setLoading(false);
-    return { success: false, error: "registration failed"};
+    return { success: false, error: "registration failed" };
   };
 
   const logout = () => {
@@ -76,8 +82,15 @@ export const AuthProvider = ({ children }) => {
     navigate("/login");
   };
 
+  const updateUser = async (updatedData) => {
+    const updatedUser = { ...user, ...updatedData };
+    await usersApi.update(updatedUser.id, updatedUser);
+    setUser(updatedUser);
+    localStorage.setItem("loggedUser", JSON.stringify(updatedUser));
+  };
+
   return (
-    <AuthContext.Provider value={{ user, login, register, logout, loading }}>
+    <AuthContext.Provider value={{ user, login, register, logout, updateUser, loading }}>
       {children}
     </AuthContext.Provider>
   );

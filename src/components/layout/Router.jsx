@@ -1,15 +1,15 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Home from "../../pages/HomePage";
-import Login from "../../pages/LoginPage";
+import { Routes, Route } from "react-router-dom";
+import HomePage from "../../pages/HomePage";
+import LoginPage from "../../pages/LoginPage";
+import RegisterPage from "../../pages/RegisterPage";
 
 const RouterProvider = () => {
   return (
-    <Router>
       <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
+        <Route path="/" element={<HomePage />} />
       </Routes>
-    </Router>
   );
 };
 

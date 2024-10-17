@@ -25,15 +25,16 @@ const RegisterPage = () => {
   };
 
   return (
-    <form onSubmit={handleRegister}>
-      <TextInput
-        id="name"
-        label="Name"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-        required
-      />
-      <PasswordInput
+    <div class="RegisterContainer">
+      <form onSubmit={handleRegister}>
+        <TextInput
+          id="username"
+          label="username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          required
+        />
+        <PasswordInput
           id="password"
           label="password"
           value={password}
@@ -48,9 +49,10 @@ const RegisterPage = () => {
           placeholder="confirm password"
           required
         />
-      {error && <div className="error-message">{error}</div>}
-      <Button type="submit">Register</Button>
-    </form>
+        {error && <div className="error-message">{error}</div>}
+        <Button type="submit">Register</Button>
+      </form>
+    </div>
   );
 };
 

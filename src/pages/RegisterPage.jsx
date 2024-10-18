@@ -1,22 +1,30 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useAuth } from "../context/AuthProvider";
+import { FormProvider } from "../context/FormProvider";
 import TextInput from "../components/common/TextInput";
 import PasswordInput from "../components/common/PasswordInput";
-import Button from "../components/common/Button";
+import SubmitButton from "../components/common/SubmitButton";
+import { useNavigate } from 'react-router-dom';
 
 const RegisterPage = () => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
   const { register } = useAuth();
+  const navigate = useNavigate();
 
-  const handleRegister = async (e) => {
-    e.preventDefault();
+  const handleRegister = async (formData) => {
     try {
-      const result = await register(username, password, confirmPassword);
+      const newUser = {
+        username: formData.username,
+        password: formData.password,
+        confirmPassword: formData.confirmPassword
+      }
+      console.log("NEW USER: ", newUser);
+      const result = await register(newUser);
+      console.log('RESULT: ', result);
       if (!result.success) {
         setError(result.error);
+      } else {
+        navigate('/login');
       }
     } catch (err) {
       console.error("Error during registration:", err);
@@ -25,33 +33,25 @@ const RegisterPage = () => {
   };
 
   return (
-    <div class="RegisterContainer">
-      <form onSubmit={handleRegister}>
-        <TextInput
-          id="username"
-          label="username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          required
-        />
+    <div className="RegisterContainer">
+      <h2>Register</h2>
+      <FormProvider onSubmit={handleRegister}>
+        <TextInput label="username" type="text" name="username" required />
         <PasswordInput
-          id="password"
           label="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          type="password"
+          name="password"
           required
         />
         <PasswordInput
-          id="confirmPassword"
           label="confirm password"
-          value={confirmPassword}
-          onChange={(e) => setConfirmPassword(e.target.value)}
-          placeholder="confirm password"
+          type="password"
+          name="confirmPassword"
           required
         />
-        {error && <div className="error-message">{error}</div>}
-        <Button type="submit">Register</Button>
-      </form>
+        <SubmitButton label="Register" />
+      </FormProvider>
+      {error && <div className="error-message">{error}</div>}
     </div>
   );
 };

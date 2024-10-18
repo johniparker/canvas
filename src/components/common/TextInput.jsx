@@ -1,18 +1,17 @@
-// components/common/TextInput.jsx
-import React from 'react';
+import { useForm } from "../../context/FormProvider";
 
-const TextInput = ({ id, label, value, onChange, required = false }) => {
+const TextInput = ({ label, name, type = "text" }) => {
+  const form = useForm();
   return (
-    <div>
-      <label htmlFor={id}>{label}:</label>
+    <label>
+      {label}
       <input
-        type="text"
-        id={id}
-        value={value}
-        onChange={onChange}
-        required={required}
+        name={name}
+        type={type}
+        value={form.state?.[name] || ""}
+        onChange={(e) => form.setValue(name, e.target.value)}
       />
-    </div>
+    </label>
   );
 };
 

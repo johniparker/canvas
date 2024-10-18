@@ -1,19 +1,18 @@
-// components/common/NumberInput.jsx
-import React from 'react';
-
-const NumberInput = ({ id, label, value, onChange, required = false }) => {
+import { useForm } from "../../context/FormProvider";
+const NumberInput = ({ label, name, type = "number" }) => {
+  const form = useForm();
   return (
-    <div>
-      <label htmlFor={id}>{label}:</label>
-      <input
-        type="number"
-        id={id}
-        value={value}
-        onChange={onChange}
-        required={required}
-      />
-    </div>
+    <label>
+        {label}
+        <input
+          type={type}
+          name={name}
+          value={form.state?.[name] || ""}
+          onChange={(e) => form.setValue(name, e.target.valueAsNumber)}
+        />
+      </label>
   );
 };
 
 export default NumberInput;
+

@@ -1,15 +1,17 @@
-const PasswordInput = ({ id, label, value, onChange, required = false }) => {
+import { useForm } from "../../context/FormProvider";
+
+const PasswordInput = ({ label, name, type = "password" }) => {
+  const form = useForm();
   return (
-    <div>
-      <label htmlFor={id}>{label}:</label>
-      <input
-        type="password"
-        id={id}
-        value={value}
-        onChange={onChange}
-        required={required}
-      />
-    </div>
+    <label>
+        {label}
+        <input
+          type={type}
+          name={name}
+          value={form.state?.[name] || ""}
+          onChange={(e) => form.setValue(name, e.target.value)}
+        />
+      </label>
   );
 };
 

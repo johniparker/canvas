@@ -105,7 +105,8 @@ export const useApi = (tableName) => {
      */
     getByField: async (field, value) => {
       const data = getFromLocalStorageDB(tableName) || [];
-      return data.find((d) => d[field] === value);
+      const object = data.find((d) => d[field] === value);
+      return object;
     },
     /**
      * Create item in the table

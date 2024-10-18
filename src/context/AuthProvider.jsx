@@ -18,7 +18,6 @@ export const AuthProvider = ({ children }) => {
     if (loggedUser) {
       setUser(loggedUser);
       setAuthenticated(true);
-      console.log("user logged in!", loggedUser);
     } else if (
       location.pathname !== "/login" &&
       location.pathname !== "/register" &&
@@ -27,7 +26,7 @@ export const AuthProvider = ({ children }) => {
       navigate("/login");
     }
     setLoading(false);
-  }, [navigate, location.pathname]);
+  }, []);
 
   const login = async (username, password) => {
     setLoading(true);
@@ -46,23 +45,24 @@ export const AuthProvider = ({ children }) => {
     return false;
   };
 
-  const register = async (username, password, confirmPassword) => {
+  const register = async (newUser) => {
     setLoading(true);
 
-    if (password !== confirmPassword) {
+    if (newUser.password !== newUser.confirmPassword) {
       setLoading(false);
       return { success: false, error: "passwords do not match" };
     }
 
-    const existingUser = await usersApi.getByField("username", username);
+    const existingUser = await usersApi.getByField("username", newUser.username);
     if (existingUser) {
       setLoading(false);
       return { success: false, error: "username already exists" };
     }
 
-    const newUser = { username, password };
-    const createdUser = await usersApi.create(newUser);
+    const createdUserId = await usersApi.create(newUser);
+    const createdUser = await usersApi.getByField("id", createdUserId);
 
+    console.log(createdUser)
     if (createdUser) {
       setUser(createdUser);
       setAuthenticated(true);
@@ -91,10 +91,19 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, register, logout, updateUser, loading }}>
+    <AuthContext.Provider
+      value={{ user, login, register, logout, updateUser, loading }}
+    >
       {children}
     </AuthContext.Provider>
   );
 };
 
-export const useAuth = () => useContext(AuthContext);
+export const useAuth = () => {
+  const context = useContext(AuthContext);
+
+  if (!context) {
+    throw new Error("useAuth must be used within an AuthProvider");
+  }
+  return context;
+};

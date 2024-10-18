@@ -3,13 +3,13 @@ import HomePage from "../../pages/HomePage";
 import LoginPage from "../../pages/LoginPage";
 import RegisterPage from "../../pages/RegisterPage";
 import ProfilePage from "../../pages/ProfilePage";
-import { useAuth } from "../../context/AuthProvider";
 import ProtectedRoute from "./ProtectedRoute";
-import Announcements from "../../pages/Announcements";
+import AnnouncementList from "../../pages/AnnouncementList";
+import AnnouncementEdit from "../../pages/AnnouncementEdit";
+
+import Pages from "../../pages/Pages";
 
 const RouterProvider = () => {
-  const { user } = useAuth();
-  console.log("USER IN ROUTER: ", user);
   return (
     <Routes>
       <Route path="/login" element={<LoginPage />} />
@@ -19,7 +19,13 @@ const RouterProvider = () => {
       element={<ProtectedRoute element={<ProfilePage />} />} />
       <Route 
       path="/announcements" 
-      element={<ProtectedRoute element={<Announcements />} />} />
+      element={<ProtectedRoute element={<AnnouncementList />} />} />
+      <Route 
+      path="/announcement-edit" 
+      element={<ProtectedRoute element={<AnnouncementEdit />} />} />
+      <Route 
+      path="/pages" 
+      element={<ProtectedRoute element={<Pages />} />} />
       <Route path="/" element={<HomePage />} />
     </Routes>
   );

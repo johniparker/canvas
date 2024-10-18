@@ -1,18 +1,21 @@
-// components/common/SelectInput.jsx
-import React from 'react';
+import { useForm } from "../../context/FormProvider";
 
-const SelectInput = ({ id, value, onChange, options }) => {
+const SelectInput = ({ options, name, label }) => {
+  const form = useForm();
   return (
-    <div>
-      <label htmlFor={id}>Select Role:</label>
-      <select id={id} value={value} onChange={onChange} required>
+      <label>
+        {label}
+      <select 
+      name={name}
+      onChange={(e) => form.setValue(name, e.target.value)}
+      required>
         {options.map((option) => (
           <option key={option.value} value={option.value}>
             {option.label}
           </option>
         ))}
       </select>
-    </div>
+      </label>
   );
 };
 

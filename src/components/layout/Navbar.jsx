@@ -20,6 +20,9 @@ const Navbar = () => {
               <Link to="/announcements">Announcements</Link>
             </li>
             <li>
+              <Link to="/pages">Pages</Link>
+            </li>
+            <li>
               <button onClick={logout}>Logout</button>
             </li>
           </>

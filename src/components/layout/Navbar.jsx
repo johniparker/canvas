@@ -23,6 +23,9 @@ const Navbar = () => {
               <Link to="/pages">Pages</Link>
             </li>
             <li>
+            <Link to="/modules">Modules</Link>
+            </li>
+            <li>
               <button onClick={logout}>Logout</button>
             </li>
           </>

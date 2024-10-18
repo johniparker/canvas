@@ -8,6 +8,8 @@ import Announcements from "../../pages/Announcements";
 import EditAnnouncement from "../../pages/EditAnnouncement";
 import Pages from "../../pages/Pages";
 import EditPage from "../../pages/EditPage";
+import Modules from "../../pages/Modules";
+import EditModule from "../../pages/EditModule";
 
 const RouterProvider = () => {
   return (
@@ -30,6 +32,12 @@ const RouterProvider = () => {
       path="/page-edit" 
       element={<ProtectedRoute element={<EditPage />} />} />
       <Route path="/" element={<HomePage />} />
+      <Route 
+      path="/modules" 
+      element={<ProtectedRoute element={<Modules />} />} />
+      <Route 
+      path="/module-edit/:moduleId" 
+      element={<ProtectedRoute element={<EditModule />} />} />
     </Routes>
   );
 };

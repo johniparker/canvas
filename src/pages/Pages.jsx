@@ -14,7 +14,7 @@ const Pages = () => {
       console.log("FETCHED PAGES: ", fetchedPages);
       setPages(fetchedPages);
     } catch (error) {
-      console.error("error fetching pages: ", pages);
+      console.error("error fetching pages: ", error);
     }
   };
 

@@ -20,6 +20,8 @@ const AnnouncementForm = () => {
       console.error("Error creating announcement:", error);
     }
   };
+
+  
   return (
     <div className="announcement-form-container">
       <h4>Make an Announcement</h4>

@@ -4,10 +4,10 @@ import LoginPage from "../../pages/LoginPage";
 import RegisterPage from "../../pages/RegisterPage";
 import ProfilePage from "../../pages/ProfilePage";
 import ProtectedRoute from "./ProtectedRoute";
-import AnnouncementList from "../../pages/AnnouncementList";
-import AnnouncementEdit from "../../pages/AnnouncementEdit";
-
+import Announcements from "../../pages/Announcements";
+import EditAnnouncement from "../../pages/EditAnnouncement";
 import Pages from "../../pages/Pages";
+import EditPage from "../../pages/EditPage";
 
 const RouterProvider = () => {
   return (
@@ -19,13 +19,16 @@ const RouterProvider = () => {
       element={<ProtectedRoute element={<ProfilePage />} />} />
       <Route 
       path="/announcements" 
-      element={<ProtectedRoute element={<AnnouncementList />} />} />
+      element={<ProtectedRoute element={<Announcements />} />} />
       <Route 
       path="/announcement-edit" 
-      element={<ProtectedRoute element={<AnnouncementEdit />} />} />
+      element={<ProtectedRoute element={<EditAnnouncement />} />} />
       <Route 
       path="/pages" 
       element={<ProtectedRoute element={<Pages />} />} />
+      <Route 
+      path="/page-edit" 
+      element={<ProtectedRoute element={<EditPage />} />} />
       <Route path="/" element={<HomePage />} />
     </Routes>
   );

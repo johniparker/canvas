@@ -36,7 +36,7 @@ const RouterProvider = () => {
       path="/modules" 
       element={<ProtectedRoute element={<Modules />} />} />
       <Route 
-      path="/module-edit/:moduleId" 
+      path="/module-edit/:moduleId?" 
       element={<ProtectedRoute element={<EditModule />} />} />
     </Routes>
   );

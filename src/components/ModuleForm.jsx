@@ -8,6 +8,7 @@ import SubmitButton from "./common/SubmitButton";
 const ModuleForm = ({ module }) => {
   const modulesApi = useApi("modules");
   const navigate = useNavigate();
+  console.log('MODULE: ', module);
 
   const handleModuleSubmission = async (formData) => {
     const newModule = {
@@ -23,6 +24,23 @@ const ModuleForm = ({ module }) => {
       }
     } catch (error) {
       console.error("error creating module: ", error);
+    }
+  };
+
+  const handleModuleEdit = async (formData) => {
+    const newModule = {
+      title: formData.title,
+      content: formData.content,
+      published: module.published
+    };
+    try {
+      const updatedModule = await modulesApi.update(module.id, newModule);
+      if (updatedModule) {
+        console.log('MODULE UPDATED: ', updatedModule);
+        navigate("/modules");
+      }
+    } catch (error ) {
+      console.error("error updating module: ", error);
     }
   };
 
@@ -51,7 +69,7 @@ const ModuleForm = ({ module }) => {
   return (
     <>
       <div className="module-form-container">
-        <FormProvider onSubmit={handleModuleSubmission} defaultValue={module}>
+        <FormProvider onSubmit={module ? handleModuleEdit : handleModuleSubmission} defaultValue={module}>
           <TextInput label="title" name="title" required />
           <TextInput label="content" name="content" required />
           <SubmitButton label="Submit" />

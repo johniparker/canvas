@@ -3,6 +3,7 @@ import { useApi } from "../api";
 import TextInput from "./common/TextInput";
 import SubmitButton from "./common/SubmitButton";
 import { useNavigate } from "react-router-dom";
+import { Box, Typography, Container } from "@mui/material";
 
 const AnnouncementForm = () => {
   const announcementsApi = useApi("announcements");
@@ -21,16 +22,19 @@ const AnnouncementForm = () => {
     }
   };
 
-  
   return (
-    <div className="announcement-form-container">
-      <h4>Make an Announcement</h4>
-      <FormProvider onSubmit={handleAnnouncementSubmission}>
-        <TextInput label="title" name="title" required />
-        <TextInput label="content" name="content" required />
-        <SubmitButton label="Submit" />
-      </FormProvider>
-    </div>
+    <Container maxWidth="sm" sx={{ padding: 2 }}>
+      <Box sx={{ textAlign: 'center' }}>
+        <Typography variant="h4" gutterBottom>
+          Make an Announcement
+        </Typography>
+        <FormProvider onSubmit={handleAnnouncementSubmission}>
+          <TextInput label="Title" name="title" required />
+          <TextInput label="Content" name="content" required />
+          <SubmitButton label="Submit" />
+        </FormProvider>
+      </Box>
+    </Container>
   );
 };
 

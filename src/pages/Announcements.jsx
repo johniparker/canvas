@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useApi } from "../api";
 import RedirectButton from "../components/common/RedirectButton";
+import { Box, Typography, Container } from "@mui/material";
 
 const AnnouncementList = () => {
   const [announcements, setAnnouncements] = useState([]);
@@ -21,22 +22,24 @@ const AnnouncementList = () => {
   }, []);
 
   return (
-    <>
-      <div className="announcement-list">
-        <h2>Announcements</h2>
+    <Container maxWidth="md" sx={{ padding: 2 }}>
+      <Box sx={{ marginBottom: 4 }}>
+        <Typography variant="h4" gutterBottom>
+          Announcements
+        </Typography>
         {announcements.length > 0 ? (
           announcements.map((announcement, index) => (
-            <div key={index}>
-              <h3>{announcement.title}</h3>
-              <p>{announcement.content}</p>
-            </div>
+            <Box key={index} sx={{ marginBottom: 2, padding: 2, border: '1px solid #ddd', borderRadius: 2 }}>
+              <Typography variant="h6">{announcement.title}</Typography>
+              <Typography variant="body1">{announcement.content}</Typography>
+            </Box>
           ))
         ) : (
-          <p>No announcements available.</p>
+          <Typography variant="body1">No announcements available.</Typography>
         )}
-      </div>
+      </Box>
       <RedirectButton path="/announcement-edit" label="Make an Announcement" />
-    </>
+    </Container>
   );
 };
 

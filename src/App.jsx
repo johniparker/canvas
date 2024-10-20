@@ -1,14 +1,15 @@
 import { BrowserRouter as Router } from "react-router-dom";
 import RouterProvider from "./components/layout/Router";
 import { AuthProvider } from "./context/AuthProvider";
-import Navbar from "./components/layout/Navbar";
+import Layout from "./components/layout/Layout";
 
 function App() {
   return (
     <Router>
       <AuthProvider>
-        <Navbar />
-        <RouterProvider />
+        <Layout>
+          <RouterProvider />
+        </Layout>
       </AuthProvider>
     </Router>
   );

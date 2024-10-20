@@ -28,11 +28,12 @@ export const AuthProvider = ({ children }) => {
     setLoading(false);
   }, []);
 
-  const login = async (username, password) => {
+  const login = async (formData) => {
     setLoading(true);
-    const user = await usersApi.getByField("username", username);
+    console.log('USER: ', formData.username)
+    const user = await usersApi.getByField("username", formData.username);
     console.log("Fetched user:", user);
-    if (user && user.password === password) {
+    if (user && user.password === formData.password) {
       console.log("Logging in user:", user);
       setUser(user);
       setAuthenticated(true);

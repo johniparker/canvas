@@ -1,11 +1,12 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from "../context/AuthProvider";
 import { FormProvider } from "../context/FormProvider";
 import TextInput from "../components/common/TextInput";
 import PasswordInput from "../components/common/PasswordInput";
 import SubmitButton from "../components/common/SubmitButton";
 import RedirectButton from "../components/common/RedirectButton";
+import { Box, Typography, Container, Alert } from "@mui/material";
 
 const LoginPage = () => {
   const [error, setError] = useState("");
@@ -30,20 +31,41 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="login-container">
-      <h2>Login</h2>
-      <FormProvider onSubmit={handleLogin}>
-        <TextInput label="username" name="username" required />
-        <PasswordInput
-          label="password"
-          name="password"
-          required
-        />
-        {error && <p className="error">{error}</p>}
-        <SubmitButton label="Login" />
-      </FormProvider>
-      <RedirectButton path="/register" label="New here? Register" />
-    </div>
+    <Container maxWidth="sm" sx={{ marginTop: 4, backgroundColor: "#121212" }}>
+      <Box 
+        sx={{ 
+          padding: 3, 
+          borderRadius: 2, 
+          boxShadow: 3, 
+          backgroundColor: "#1E1E1E", 
+          color: "#FFFFFF" 
+        }}>
+        <Typography variant="h4" gutterBottom align="center">
+          Login
+        </Typography>
+        <FormProvider onSubmit={handleLogin}>
+          <TextInput 
+            label="Username" 
+            name="username" 
+            required 
+            inputProps={{ style: { backgroundColor: "#2C2C2C", color: "#FFFFFF" } }} // Input styling
+          />
+          <PasswordInput 
+            label="Password" 
+            name="password" 
+            required 
+            inputProps={{ style: { backgroundColor: "#2C2C2C", color: "#FFFFFF" } }} // Input styling
+          />
+          {error && (
+            <Alert severity="error" sx={{ marginTop: 2, backgroundColor: "#D32F2F", color: "#FFFFFF" }}>
+              {error}
+            </Alert>
+          )}
+          <SubmitButton label="Login" />
+        </FormProvider>
+        <RedirectButton path="/register" label="New here? Register" />
+      </Box>
+    </Container>
   );
 };
 
